@@ -1,0 +1,36 @@
+{
+  "name": "restore-winston-elasticsearch-transformer",
+  "version": "0.1.0",
+  "description": "Transformer function for the winston-elasticsearch log transport",
+  "main": "./lib/index",
+  "author": "Invend GmbH",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/restorecommerce/winston-elasticsearch-transformer.git"
+  },
+  "license": "MIT",
+  "keywords": [
+    "restore",
+    "commerce"
+  ],
+  "dependencies": {
+  },
+  "devDependencies": {
+    "jshint": "^2.9.1",
+    "jscs": "^3.0.3",
+    "coveralls": "^2.11.9",
+    "mocha": "^2.4.5",
+    "should": "^8.3.1",
+    "istanbul": "^0.4.2"
+  },
+  "scripts": {
+    "test": "npm run jshint && npm run jscs && npm run mocha",
+    "jshint": "./node_modules/.bin/jshint *.json *.js",
+    "jscs": "./node_modules/.bin/jscs *.js",
+    "mocha": "./node_modules/mocha/bin/mocha --harmony --harmony_arrow_functions ./test/*",
+    "coveralls": "node --harmony --harmony_arrow_functions node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec ./test/*"
+  },
+  "engines": {
+    "node": ">= 5.0.0"
+  }
+}
