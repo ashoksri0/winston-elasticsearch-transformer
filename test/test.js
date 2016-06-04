@@ -1,10 +1,10 @@
-var should = require('should');
+const should = require('should');
 
-var transformer = require('../index').transformer;
+const transformer = require('../index').transformer;
 
 describe('the transformer', function() {
   it('should transform log data from winston into the desired format', function (done) {
-    var transformed = transformer({
+    const transformed = transformer({
       message: 'some message',
       level: 'error',
       meta: {
