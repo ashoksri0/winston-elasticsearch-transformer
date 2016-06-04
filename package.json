@@ -2,7 +2,7 @@
   "name": "restore-winston-elasticsearch-transformer",
   "version": "0.1.0",
   "description": "Transformer function for the winston-elasticsearch log transport",
-  "main": "./lib/index",
+  "main": "index",
   "author": "Invend GmbH",
   "repository": {
     "type": "git",
@@ -11,26 +11,28 @@
   "license": "MIT",
   "keywords": [
     "restore",
-    "commerce"
+    "commerce",
+    "log",
+    "transformer"
   ],
   "dependencies": {
   },
   "devDependencies": {
-    "jshint": "^2.9.1",
-    "jscs": "^3.0.3",
-    "coveralls": "^2.11.9",
-    "mocha": "^2.4.5",
-    "should": "^8.3.1",
-    "istanbul": "^0.4.2"
+    "coveralls": "2.11.9",
+    "eslint-config-restorecommerce": "restorecommerce/eslint-config-restorecommerce",
+    "is-generator": "^1.0.3",
+    "istanbul": "^0.4.3",
+    "jshint": "^2.9.2",
+    "mocha": "^2.5.3",
+    "should": "^9.0.0"
   },
   "scripts": {
-    "test": "npm run jshint && npm run jscs && npm run mocha",
-    "jshint": "./node_modules/.bin/jshint *.json *.js",
-    "jscs": "./node_modules/.bin/jscs *.js",
-    "mocha": "./node_modules/mocha/bin/mocha --harmony --harmony_arrow_functions ./test/*",
-    "coveralls": "node --harmony --harmony_arrow_functions node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec ./test/*"
+    "test": "npm run lint && npm run mocha",
+    "lint": "eslint *.json *.js",
+    "mocha": "mocha ./test/*",
+    "coveralls": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec ./test/*"
   },
   "engines": {
-    "node": ">= 5.0.0"
+    "node": ">= 6.0.0"
   }
 }

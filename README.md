@@ -1,8 +1,6 @@
-# 
+# winston-elasticsearch-transformer
 
-xxx middleware
-[koa](https://restore-commerce.org/).
-Part of [Restore Commerce](https://restore-commerce.org/).
+Transformer function for the winston-elasticsearch log transport
 
 ## Usage
 

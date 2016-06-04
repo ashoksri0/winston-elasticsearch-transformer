@@ -1,38 +1,39 @@
 'use strict';
 
-let os = require('os');
-let util = require('util');
+const os = require('os');
+const util = require('util');
 
-exports.mappingTemplate = require('./index-template-mapping.json');
+exports.mappingTemplate = require('./lib/index-template-mapping.json');
 
 // List of properties that have to be moved
 // from the meta property to the root
-const knownProperties = [
-  'tenant',
-  'user',
-  'source',
-  'source_host',
-  'source_path',
-  'tags',
-  'severity',
-  'proc_time',
-  'req_id',
-  'req_method',
-  'req_user_agent',
-  'res_status'
-];
+// const knownProperties = [
+//   'tenant',
+//   'user',
+//   'source',
+//   'source_host',
+//   'source_path',
+//   'tags',
+//   'severity',
+//   'proc_time',
+//   'req_id',
+//   'req_method',
+//   'req_user_agent',
+//   'res_status'
+// ];
 
 const regexP = /^.*at([\s](.*))?([\s][\(]?(.*):[\d]+:[\d]+[\)]?)/;
 
 // TODO: performance ?
 const getSourcePath = () => {
-  let err = new Error();
+  const err = new Error();
   // File path of logger caller is on the 10th line
-  let caller_line = err.stack.split('\n')[10];
-  let matches = regexP.exec(caller_line);
+  const callerLine = err.stack.split('\n')[10];
+  const matches = regexP.exec(callerLine);
   if (matches) {
     return matches[4];
   }
+  return null;
 };
 
 /**
@@ -46,8 +47,8 @@ const getSourcePath = () => {
  * @returns {Object} transformed message
  */
 exports.transformer = (logData) => {
-  let transformed = {};
-  let meta = logData.meta;
+  const transformed = {};
+  const meta = logData.meta;
 
   transformed['@timestamp'] = new Date().toISOString();
   transformed.source = this.transformer.source;
@@ -57,40 +58,35 @@ exports.transformer = (logData) => {
   transformed.severity = logData.level;
 
   // Read top-level properties from meta if exists
-  for (let prop in meta) {
+  Object.keys(meta).forEach(prop => {
     if (util.isObject(meta[prop])) {
       if (prop === '0') {
-        let rid = meta[prop].rid;
+        const rid = meta[prop].rid;
         if (rid) {
           transformed.req_id = rid;
-          // TODO: check whether delete origin attribute is required
-//          delete meta[prop].rid;
         }
-        let procTime = meta[prop].procTime;
+        const procTime = meta[prop].procTime;
         if (procTime) {
           transformed.proc_time = procTime;
-//          delete meta[prop].procTime;
         }
       }
       if (prop === '1') {
-        let method = meta[prop].method;
+        const method = meta[prop].method;
         if (method) {
           transformed.req_method = method;
-//          delete meta[prop].method;
         }
-        let headers = meta[prop].headers;
+        const headers = meta[prop].headers;
         if (headers) {
-          let userAgent = headers['user-agent'];
+          const userAgent = headers['user-agent'];
           if (userAgent) {
             transformed.req_user_agent = userAgent;
           }
         }
-        let status = meta[prop].status;
+        const status = meta[prop].status;
         if (status) {
           transformed.res_status = status;
-//          delete meta[prop].status;
         }
-        let user = meta[prop].user;
+        const user = meta[prop].user;
         if (user) {
           transformed.user = user.id;
         }
@@ -99,9 +95,8 @@ exports.transformer = (logData) => {
         delete meta[prop];
       }
     }
-  }
+  });
 
   transformed.fields = logData.meta;
-  // transformed.fields = {};
   return transformed;
 };
