@@ -37,14 +37,14 @@ const getSourcePath = () => {
 };
 
 /**
- * Transformer function to transform logged data into a
- * the message structure used in restore for storage in ES.
- *
- * @param {Object} logData
- * @param {Object} logData.message - the log message
- * @param {Object} logData.level - the log level
- * @param {Object} logData.meta - the log meta data
- * @returns {Object} transformed message
+ Transformer function to transform logged data into a
+ the message structure used in restore for storage in ES.
+
+ @param {Object} logData
+ @param {Object} logData.message - the log message
+ @param {Object} logData.level - the log level
+ @param {Object} logData.meta - the log meta data
+ @returns {Object} transformed message
  */
 exports.transformer = (logData) => {
   const transformed = {};
@@ -58,7 +58,7 @@ exports.transformer = (logData) => {
   transformed.severity = logData.level;
 
   // Read top-level properties from meta if exists
-  Object.keys(meta).forEach(prop => {
+  Object.keys(meta).forEach((prop) => {
     if (util.isObject(meta[prop])) {
       if (prop === '0') {
         const rid = meta[prop].rid;
