@@ -1,5 +1,5 @@
 {
-  "name": "restore-winston-elasticsearch-transformer",
+  "name": "@restorecommerce/winston-elasticsearch-transformer",
   "version": "0.1.0",
   "description": "Transformer function for the winston-elasticsearch log transport",
   "main": "index",
@@ -19,11 +19,11 @@
   ],
   "dependencies": {},
   "devDependencies": {
+    "@restorecommerce/eslint-config-restorecommerce": "restorecommerce/eslint-config-restorecommerce",
     "coveralls": "^2.13.1",
-    "eslint-config-restorecommerce": "restorecommerce/eslint-config-restorecommerce",
     "is-generator": "^1.0.3",
     "istanbul": "^0.4.5",
-    "mocha": "^3.4.1",
+    "mocha": "^3.4.2",
     "should": "^11.2.1"
   },
   "scripts": {
@@ -33,6 +33,6 @@
     "coveralls": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec ./test/*"
   },
   "engines": {
-    "node": ">= 6.0.0"
+    "node": ">= 8.0.0"
   }
 }
