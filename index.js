@@ -22,6 +22,7 @@ exports.mappingTemplate = require('./lib/index-template-mapping.json');
 //   'res_status'
 // ];
 
+// eslint-disable-next-line no-useless-escape
 const regexP = /^.*at([\s](.*))?([\s][\(]?(.*):[\d]+:[\d]+[\)]?)/;
 
 // TODO: performance ?
